@@ -1,6 +1,6 @@
-const me = async (_, args, {}) => "Hello world!";
+const me = (_, args, {}) => "Hello world!";
 
-const login = async (_, args, {}) => ({
+const login = (_, args, {}) => ({
   name: "hello, it's me!"
 });
 
