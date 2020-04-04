@@ -4,23 +4,23 @@ import session from "express-session";
 import cors from "cors";
 import errorhandler from "errorhandler";
 import mongoose from "mongoose";
+import methodOverride from "method-override";
+
 import rootRouter from "./routes";
 import logMiddleware from "./middlewares/logMiddleware";
 import loggerUtil from "./utils/logger";
 
 const isProduction = process.env.NODE_ENV === "production";
 
-// Create global app object
 const app = express();
 
 app.use(cors());
 
-// Normal express config defaults
 app.use(logMiddleware);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use(require("method-override")());
+app.use(methodOverride());
 app.use(express.static(__dirname + "/public"));
 
 app.use(
