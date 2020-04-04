@@ -1,16 +1,34 @@
-import { makeExecutableSchema } from "graphql-tools";
-import * as typeDefs from "./schema.gql";
+import { makeExecutableSchema } from "apollo-server-express";
+import deepmerge from "deepmerge";
 
-// Provide resolver functions for your schema fields
-const resolvers = {
-  Query: {
-    hello: () => "Hello world!"
-  }
+import directives from "./directives";
+import scalars from "./scalars";
+import * as globalTypeDefs from "./schema.gql";
+
+import user from "./modules/user";
+
+const makeExecutableSchemaFromModules = ({ modules }) => {
+  let typeDefs = [globalTypeDefs, ...scalars.typeDefs, ...directives.typeDefs];
+
+  let resolvers = {
+    ...scalars.resolvers
+  };
+
+  modules.forEach(module => {
+    typeDefs = [...typeDefs, ...module.typeDefs];
+
+    resolvers = deepmerge(resolvers, module.resolvers);
+  });
+
+  return makeExecutableSchema({
+    typeDefs,
+    resolvers,
+    schemaDirectives: {
+      ...directives.schemaDirectives
+    }
+  });
 };
 
-const schema = makeExecutableSchema({
-  typeDefs,
-  resolvers
+export default makeExecutableSchemaFromModules({
+  modules: [user]
 });
-
-export default schema;
