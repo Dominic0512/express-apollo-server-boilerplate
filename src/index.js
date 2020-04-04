@@ -6,6 +6,7 @@ import errorhandler from "errorhandler";
 import mongoose from "mongoose";
 import methodOverride from "method-override";
 
+import apolloServer from "./config/apollo";
 import rootRouter from "./routes";
 import logMiddleware from "./middlewares/logMiddleware";
 import loggerUtil from "./utils/logger";
@@ -44,6 +45,7 @@ if (isProduction) {
 }
 
 app.use(rootRouter);
+apolloServer.applyMiddleware({ app, path: "/graphql" });
 
 app.use((req, res, next) => {
   const err = new Error("Not Found");
