@@ -14,10 +14,10 @@ const makeExecutableSchemaFromModules = ({ modules }) => {
     ...scalars.resolvers
   };
 
-  modules.forEach(module => {
-    typeDefs = [...typeDefs, ...module.typeDefs];
+  modules.forEach(moduleItem => {
+    typeDefs = [...typeDefs, ...moduleItem.typeDefs];
 
-    resolvers = deepmerge(resolvers, module.resolvers);
+    resolvers = deepmerge(resolvers, moduleItem.resolvers);
   });
 
   return makeExecutableSchema({

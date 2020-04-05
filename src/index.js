@@ -11,7 +11,6 @@ import apolloServer from "./config/apollo";
 import rootRouter from "./routes";
 import logMiddleware from "./middlewares/logMiddleware";
 import loggerUtil from "./utils/logger";
-
 dotenv.config();
 
 const { NODE_ENV, PORT } = process.env;
@@ -19,6 +18,8 @@ const { NODE_ENV, PORT } = process.env;
 const isProduction = NODE_ENV === "production";
 
 const app = express();
+
+database.initialize();
 
 app.use(cors());
 
@@ -41,8 +42,6 @@ app.use(
 if (!isProduction) {
   app.use(errorhandler());
 }
-
-database.initialize();
 
 app.use(rootRouter);
 apolloServer.applyMiddleware({ app, path: "/graphql" });

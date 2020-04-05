@@ -1,4 +1,15 @@
 {
   "presets": ["es2015", "stage-2"],
-  "plugins": ["import-graphql"]
+  "plugins": [
+    "import-graphql",
+    [
+      "module-resolver",
+      {
+        "root": ["./src"],
+        "alias": {
+          "@models": "./src/models"
+        }
+      }
+    ]
+  ]
 }
