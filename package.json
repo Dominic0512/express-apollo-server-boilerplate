@@ -4,8 +4,7 @@
   "description": "i-appter api server",
   "main": "app.js",
   "scripts": {
-    "clean:babel-loader": "rm -rf ./node_modules/.cache/babel-loader",
-    "dev": "npm run clean:babel-loader && nodemon src/index.js --exec babel-node",
+    "dev": "nodemon src/index.js",
     "build": "babel src -d dist",
     "serve": "node dist/index.js"
   },
