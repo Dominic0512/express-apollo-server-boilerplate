@@ -3,15 +3,20 @@ import bodyParser from "body-parser";
 import session from "express-session";
 import cors from "cors";
 import errorhandler from "errorhandler";
-import mongoose from "mongoose";
 import methodOverride from "method-override";
+import dotenv from "dotenv";
 
+import database from "./config/database";
 import apolloServer from "./config/apollo";
 import rootRouter from "./routes";
 import logMiddleware from "./middlewares/logMiddleware";
 import loggerUtil from "./utils/logger";
 
-const isProduction = process.env.NODE_ENV === "production";
+dotenv.config();
+
+const { NODE_ENV, PORT } = process.env;
+
+const isProduction = NODE_ENV === "production";
 
 const app = express();
 
@@ -37,12 +42,7 @@ if (!isProduction) {
   app.use(errorhandler());
 }
 
-if (isProduction) {
-  mongoose.connect(process.env.MONGODB_URI);
-} else {
-  mongoose.connect("mongodb://localhost/i-appter-local");
-  mongoose.set("debug", true);
-}
+database.initialize();
 
 app.use(rootRouter);
 apolloServer.applyMiddleware({ app, path: "/graphql" });
@@ -78,6 +78,6 @@ app.use((err, req, res, next) => {
   });
 });
 
-const server = app.listen(process.env.PORT || 8080, function() {
+const server = app.listen(PORT || 8080, function() {
   console.log("Listening on port " + server.address().port);
 });

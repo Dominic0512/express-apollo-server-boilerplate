@@ -41,3 +41,6 @@ db
 
 # Production dist
 dist
+
+# Env
+.env
