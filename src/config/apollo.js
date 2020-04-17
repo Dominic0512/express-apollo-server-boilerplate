@@ -1,8 +1,8 @@
 import { ApolloServer } from "apollo-server-express";
-import schema from "../graphql/index";
+import schema from "@/graphql/index";
 
 const apolloServer = new ApolloServer({
-  schema
+  schema,
 });
 
 export default apolloServer;

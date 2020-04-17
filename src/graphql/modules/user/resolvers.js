@@ -1,9 +1,9 @@
-import User from "@models/User";
+import User from "@/models/User";
 
 const me = (_, {}) => "Hello world!";
 
 const login = (_, { email, password }) => ({
-  name: "hello, it's me!"
+  name: "hello, it's me!",
 });
 
 const signup = async (_, { email, password }) => {
@@ -15,7 +15,7 @@ const signup = async (_, { email, password }) => {
     newUser.save();
 
     return {
-      name: "hello, signup success"
+      name: "hello, signup success",
     };
   } catch (error) {
     throw error;
@@ -24,12 +24,12 @@ const signup = async (_, { email, password }) => {
 
 const resolvers = {
   Query: {
-    me
+    me,
   },
   Mutation: {
     signup,
-    login
-  }
+    login,
+  },
 };
 
 export default resolvers;

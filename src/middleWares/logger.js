@@ -1,10 +1,12 @@
 import morgan from "morgan";
-import logger from "../utils/logger";
+import logger from "@/utils/logger";
 
 morgan.token(`status`, (req, res) => {
-  const status = (typeof res.headersSent !== `boolean`
-  ? Boolean(res._header)
-  : res.headersSent)
+  const status = (
+    typeof res.headersSent !== `boolean`
+      ? Boolean(res._header)
+      : res.headersSent
+  )
     ? res.statusCode
     : undefined;
 

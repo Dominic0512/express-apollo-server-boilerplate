@@ -7,7 +7,7 @@
       {
         "root": ["./src"],
         "alias": {
-          "@models": "./src/models"
+          "@": "./src"
         }
       }
     ]
