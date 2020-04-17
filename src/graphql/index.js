@@ -11,10 +11,10 @@ const makeExecutableSchemaFromModules = ({ modules }) => {
   let typeDefs = [globalTypeDefs, ...scalars.typeDefs, ...directives.typeDefs];
 
   let resolvers = {
-    ...scalars.resolvers
+    ...scalars.resolvers,
   };
 
-  modules.forEach(moduleItem => {
+  modules.forEach((moduleItem) => {
     typeDefs = [...typeDefs, ...moduleItem.typeDefs];
 
     resolvers = deepmerge(resolvers, moduleItem.resolvers);
@@ -24,11 +24,11 @@ const makeExecutableSchemaFromModules = ({ modules }) => {
     typeDefs,
     resolvers,
     schemaDirectives: {
-      ...directives.schemaDirectives
-    }
+      ...directives.schemaDirectives,
+    },
   });
 };
 
 export default makeExecutableSchemaFromModules({
-  modules: [user]
+  modules: [user],
 });

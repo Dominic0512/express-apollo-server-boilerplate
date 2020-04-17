@@ -1,4 +1,8 @@
+import auth from "./auth";
+
 export default {
-  typeDefs: [],
-  schemaDirectives: {}
+  typeDefs: [auth.typeDef],
+  schemaDirectives: {
+    isAuthenticated: auth.directive,
+  },
 };

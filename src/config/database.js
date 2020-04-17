@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import Models from "@/models";
 
 const initialize = () => {
   const { NODE_ENV, MONGODB_URI, MONGODB_NAME } = process.env;
@@ -12,5 +13,5 @@ const initialize = () => {
 };
 
 export default {
-  initialize
+  initialize,
 };

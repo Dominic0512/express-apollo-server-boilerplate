@@ -1,12 +1,19 @@
 extend type Query {
-  me: String!
+  me: Me! @isAuthenticated
 }
 
 extend type Mutation {
-  signup(email: String!, password: String!): me
-  login(email: String!, password: String!): me
+  signup(email: String!, password: String!): Me
+  login(email: String!, password: String!): AuthData
 }
 
-type me {
-  name: String!
+type AuthData {
+  user: Me
+}
+
+type Me {
+  _id: ID!
+  name: String
+  email: String!
+  token: String!
 }
