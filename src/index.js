@@ -1,6 +1,5 @@
 import express from "express";
 import bodyParser from "body-parser";
-import session from "express-session";
 import cors from "cors";
 import methodOverride from "method-override";
 import dotenv from "dotenv";
@@ -11,6 +10,8 @@ import rootRouter from "./routes";
 
 import loggerMiddleware from "./middleWares/logger";
 import { notFoundError, serverError } from "./middleWares/errorHandle";
+import sessionMiddleWare from "./middleWares/session";
+
 dotenv.config();
 
 const { PORT } = process.env;
@@ -26,15 +27,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(methodOverride());
 app.use(express.static(__dirname + "/public"));
-
-app.use(
-  session({
-    secret: "i-appter-local",
-    cookie: { maxAge: 60000 },
-    resave: false,
-    saveUninitialized: false,
-  })
-);
+app.use(sessionMiddleWare);
 
 app.use(rootRouter);
 apolloServer.applyMiddleware({ app, path: "/graphql" });
