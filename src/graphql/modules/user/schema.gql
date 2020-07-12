@@ -3,7 +3,7 @@ extend type Query {
 }
 
 extend type Mutation {
-  signup(email: String!, password: String!): Me
+  signup(email: String!, password: String!): AuthData
   login(email: String!, password: String!): AuthData
 }
 
@@ -15,5 +15,5 @@ type Me {
   _id: ID!
   name: String
   email: String!
-  token: String!
+  token: String
 }

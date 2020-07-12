@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import uniqueValidator from "mongoose-unique-validator";
 import crypto from "crypto";
 import jwt from "jsonwebtoken";
 
@@ -33,7 +32,6 @@ const UserSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-UserSchema.plugin(uniqueValidator, { message: "is already taken." });
 
 UserSchema.methods.validPassword = function (password) {
   const hash = crypto
@@ -73,7 +71,7 @@ UserSchema.methods.login = function () {
 };
 
 UserSchema.methods.profile = function () {
-  const profile = Object.assign({}, this);
+  const profile = Object.assign({}, this._doc);
   delete profile.hashedPassword;
   delete profile.salt;
   return profile;

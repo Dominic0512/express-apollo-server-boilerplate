@@ -49,11 +49,11 @@ const signup = async (_, { email, password }) => {
 
     newUser.email = email;
     newUser.setPassword(password);
-    await newUser.save();
+
+    const createdUser = await newUser.save();
 
     return {
-      _id: newUser._id,
-      email: email,
+      user: createdUser.profile()
     };
   } catch (error) {
     throw error;
