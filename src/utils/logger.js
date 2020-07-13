@@ -1,9 +1,9 @@
-import path from "path";
-import fs from "fs";
-import { createLogger, format, transports, addColors } from "winston";
+import path from 'path'
+import fs from 'fs'
+import { createLogger, format, transports, addColors } from 'winston'
 
-const logDirectory = path.resolve("./", "logs");
-fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory);
+const logDirectory = path.resolve('./', 'logs')
+fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory)
 
 const config = {
   levels: {
@@ -13,40 +13,40 @@ const config = {
     http: 3,
     verbose: 4,
     debug: 5,
-    silly: 6
+    silly: 6,
   },
   colors: {
-    error: "red",
-    warn: "yellow",
-    info: "green",
-    http: "yellow",
-    verbose: "cyan",
-    debug: "blue",
-    silly: "magenta"
-  }
-};
+    error: 'red',
+    warn: 'yellow',
+    info: 'green',
+    http: 'yellow',
+    verbose: 'cyan',
+    debug: 'blue',
+    silly: 'magenta',
+  },
+}
 
-addColors(config.colors);
+addColors(config.colors)
 
 const options = {
   allLog: {
-    level: "http",
-    filename: path.resolve(logDirectory, "all.log")
+    level: 'http',
+    filename: path.resolve(logDirectory, 'all.log'),
   },
   errorLog: {
-    level: "error",
-    filename: path.resolve(logDirectory, "error.log")
-  }
-};
+    level: 'error',
+    filename: path.resolve(logDirectory, 'error.log'),
+  },
+}
 
-const formatParams = info => {
-  let { timestamp, level, message } = info;
-  message = message.replace(/[\r\n]/g, "");
-  return `[${timestamp}] ${level}: ${message}`;
-};
+const formatParams = (info) => {
+  let { timestamp, level, message } = info
+  message = message.replace(/[\r\n]/g, '')
+  return `[${timestamp}] ${level}: ${message}`
+}
 
 const logger = createLogger({
-  level: "http",
+  level: 'http',
   levels: config.levels,
   handleExceptions: true,
   json: true,
@@ -54,20 +54,20 @@ const logger = createLogger({
   maxFiles: 5,
   format: format.combine(
     format.colorize(),
-    format.timestamp({ format: "YYYY-MM-DD HH:mm:ss" }),
+    format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
     format.printf(formatParams)
   ),
   transports: [
     new transports.File(options.allLog),
     new transports.File(options.errorLog),
-    new transports.Console()
-  ]
-});
+    new transports.Console(),
+  ],
+})
 
 logger.stream = {
   write: (message, encoding) => {
-    logger.http(message);
-  }
-};
+    logger.http(message)
+  },
+}
 
-export default logger;
+export default logger

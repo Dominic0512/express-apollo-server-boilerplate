@@ -1,11 +1,11 @@
-import mongoose from "mongoose";
-import crypto from "crypto";
-import jwt from "jsonwebtoken";
+import mongoose from 'mongoose'
+import crypto from 'crypto'
+import jwt from 'jsonwebtoken'
 
-import dotenv from "dotenv";
-dotenv.config();
+import dotenv from 'dotenv'
+dotenv.config()
 
-const { JWT_SECRET } = process.env;
+const { JWT_SECRET } = process.env
 
 const UserSchema = new mongoose.Schema(
   {
@@ -14,7 +14,7 @@ const UserSchema = new mongoose.Schema(
       lowercase: true,
       unique: true,
       required: [true, "can't be blank"],
-      match: [/\S+@\S+\.\S+/, "is invalid"],
+      match: [/\S+@\S+\.\S+/, 'is invalid'],
       index: true,
     },
     hashedPassword: {
@@ -30,27 +30,26 @@ const UserSchema = new mongoose.Schema(
     },
   },
   { timestamps: true }
-);
-
+)
 
 UserSchema.methods.validPassword = function (password) {
   const hash = crypto
-    .pbkdf2Sync(password, this.salt, 10000, 512, "sha512")
-    .toString("hex");
-  return this.hash === hash;
-};
+    .pbkdf2Sync(password, this.salt, 10000, 512, 'sha512')
+    .toString('hex')
+  return this.hash === hash
+}
 
 UserSchema.methods.setPassword = function (password) {
-  this.salt = crypto.randomBytes(16).toString("hex");
+  this.salt = crypto.randomBytes(16).toString('hex')
   this.hashedPassword = crypto
-    .pbkdf2Sync(password, this.salt, 10000, 512, "sha512")
-    .toString("hex");
-};
+    .pbkdf2Sync(password, this.salt, 10000, 512, 'sha512')
+    .toString('hex')
+}
 
 UserSchema.methods.generateJWT = function () {
-  const today = new Date();
-  let exp = new Date(today);
-  exp.setDate(today.getDate() + 60);
+  const today = new Date()
+  let exp = new Date(today)
+  exp.setDate(today.getDate() + 60)
 
   return jwt.sign(
     {
@@ -59,38 +58,38 @@ UserSchema.methods.generateJWT = function () {
       exp: parseInt(exp.getTime() / 1000),
     },
     JWT_SECRET
-  );
-};
+  )
+}
 
 UserSchema.methods.login = function () {
-  const profile = Object.assign({}, this._doc);
-  delete profile.hashedPassword;
-  delete profile.salt;
-  profile.token = this.generateJWT();
-  return profile;
-};
+  const profile = Object.assign({}, this._doc)
+  delete profile.hashedPassword
+  delete profile.salt
+  profile.token = this.generateJWT()
+  return profile
+}
 
 UserSchema.methods.profile = function () {
-  const profile = Object.assign({}, this._doc);
-  delete profile.hashedPassword;
-  delete profile.salt;
-  return profile;
-};
+  const profile = Object.assign({}, this._doc)
+  delete profile.hashedPassword
+  delete profile.salt
+  return profile
+}
 
 UserSchema.statics.decodeJWT = function (token) {
   return new Promise((resolve, reject) => {
     jwt.verify(token, JWT_SECRET, (error, decodedToken) => {
       if (error) {
-        return reject(error);
+        return reject(error)
       }
 
       if (!decodedToken.exp || !decodedToken.iat) {
-        return reject(new Error(`Token had no 'exp' or 'iat' payload`));
+        return reject(new Error(`Token had no 'exp' or 'iat' payload`))
       }
 
-      resolve(decodedToken);
-    });
-  });
-};
+      resolve(decodedToken)
+    })
+  })
+}
 
-export default mongoose.model("User", UserSchema);
+export default mongoose.model('User', UserSchema)

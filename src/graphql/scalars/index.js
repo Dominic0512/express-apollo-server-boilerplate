@@ -1,4 +1,4 @@
 export default {
   typeDefs: [],
-  resolvers: {}
-};
+  resolvers: {},
+}
