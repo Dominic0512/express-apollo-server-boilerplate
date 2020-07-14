@@ -1,7 +1,7 @@
 {
-  "name": "i-appter-api-server",
+  "name": "express-apollo-server",
   "version": "1.0.0",
-  "description": "i-appter api server",
+  "description": "express-apollo-server",
   "main": "app.js",
   "scripts": {
     "dev": "nodemon src/index.js",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://gitlab.com/i-appter/api-server.git"
+    "url": "git+https://github.com/Dominic0512/express-apollo-server.git"
   },
   "license": "UNLICENSED",
   "private": true,
