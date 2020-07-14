@@ -20,7 +20,7 @@
     "cors": "2.7.1",
     "deepmerge": "^4.2.2",
     "dotenv": "^8.2.0",
-    "ejs": "2.4.1",
+    "ejs": "2.5.5",
     "errorhandler": "1.4.3",
     "express": "^4.17.1",
     "express-jwt": "^5.3.3",
