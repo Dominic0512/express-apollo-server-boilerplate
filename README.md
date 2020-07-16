@@ -1,15 +1,30 @@
-# Getting started
+# Express Apollo Server Boilerplate
 
-To get the Node server running locally:
+Start your next express with apollo server side project in seconds
 
-- Clone this repo
-- `npm install` to install all required dependencies
-- Install MongoDB Community Edition ([instructions](https://docs.mongodb.com/manual/installation/#tutorials)) and run it by executing `mongod`
-- `npm run dev` to start the local server
+## :fire: Quick Start :fire:
 
-## Application Structure
+1. Copy environment file and custumize it base on your project
 
-- `app.js` - The entry point to our application. This file defines our express server and connects it to MongoDB using mongoose. It also requires the routes and models we'll be using in the application.
-- `config/` - This folder contains configuration for passport as well as a central location for configuration/environment variables.
-- `routes/` - This folder contains the route definitions for our API.
-- `models/` - This folder contains the schema definitions for our Mongoose models.
+```
+cd /path/to/project
+cp .env.example .env
+```
+
+2. Install dependencies
+
+```
+npm install
+```
+
+3. Start to develop project
+
+```
+npm run dev
+```
+
+## 🖊 Dependency usage hints 🖊
+
+- Express: base server nodejs library
+- Apollo server: Easy to provide GraphQL service
+- Mongoose: Easy to control mongodb data
