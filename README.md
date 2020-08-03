@@ -14,13 +14,13 @@ cp .env.example .env
 2. Install dependencies
 
 ```
-npm install
+yarn install
 ```
 
 3. Start to develop project
 
 ```
-npm run dev
+yarn run dev
 ```
 
 ## 🖊 Dependency usage hints 🖊
