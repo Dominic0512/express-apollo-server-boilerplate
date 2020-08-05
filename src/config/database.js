@@ -5,7 +5,7 @@ const initialize = () => {
   const { NODE_ENV, MONGODB_URI, MONGODB_NAME } = process.env
   const isProduction = NODE_ENV === 'production'
 
-  mongoose.connect(`${MONGODB_URI}/${MONGODB_NAME}`)
+  mongoose.connect(`${MONGODB_URI}/${MONGODB_NAME}?retryWrites=true&w=majority`)
 
   if (!isProduction) {
     mongoose.set('debug', true)
