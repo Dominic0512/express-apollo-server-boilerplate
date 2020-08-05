@@ -1,0 +1,18 @@
+version: 2.1
+orbs:
+  node: circleci/node@3.0.0
+  heroku: circleci/heroku@0.0.10
+jobs:
+  heroku-deploy:
+    executor: heroku/default
+    steps:
+      - checkout
+      - heroku/install
+      - run:
+          name: Copy environment file
+          command: cp .env.example .env
+      - heroku/deploy-via-git
+workflows:
+  deploy:
+    jobs:
+      - heroku-deploy

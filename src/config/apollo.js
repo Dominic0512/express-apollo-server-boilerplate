@@ -7,6 +7,8 @@ const TOKEN_HEADER_NAME = 'x-token'
 
 const apolloServer = new ApolloServer({
   schema,
+  introspection: true,
+  playground: true,
   context: async ({ req }) => {
     if (!req) return null
 
