@@ -38,7 +38,7 @@
     "methods": "1.1.2",
     "mongoose": "^5.9.19",
     "morgan": "^1.10.0",
-    "underscore": "1.8.3",
+    "underscore": "1.12.1",
     "winston": "^3.2.1"
   },
   "devDependencies": {
