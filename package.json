@@ -33,7 +33,7 @@
     "express-session": "^1.17.1",
     "graphql": "^15.1.0",
     "graphql-tools": "^4.0.8",
-    "jsonwebtoken": "7.1.9",
+    "jsonwebtoken": "9.0.0",
     "method-override": "^3.0.0",
     "methods": "1.1.2",
     "mongoose": "^5.9.19",
